@@ -1,33 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.digicraft.westside.MainActivity">
-
-    <android.support.design.widget.AppBarLayout
+<layout>
+    <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        android:layout_height="match_parent">
+        <!-- The main content view -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </android.support.design.widget.AppBarLayout>
+            <include layout="@layout/view_toolbar"/>
 
-    <include layout="@layout/content_main" />
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:orientation="vertical"
+                app:tabGravity="center"
+                app:tabMinWidth="120dp"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="@color/colorOffWhite"
+                app:tabTextColor="@color/colorGrey">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+                <android.support.design.widget.TabItem
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/services"/>
 
-</android.support.design.widget.CoordinatorLayout>
+                <android.support.design.widget.TabItem
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/events"/>
+
+                <android.support.design.widget.TabItem
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/announcements"/>
+
+                <android.support.design.widget.TabItem
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/prayers"/>
+
+            </android.support.design.widget.TabLayout>
+            <!-- The navigation drawer -->
+            <android.support.v4.view.ViewPager
+                android:id="@+id/tabbedViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/navigation"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/colorOffWhite"
+            android:fitsSystemWindows="true"/>
+    </android.support.v4.widget.DrawerLayout>
+</layout>

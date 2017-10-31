@@ -1,0 +1,29 @@
+<layout xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="vm"
+            type="com.digicraft.westside.ui.drawer.HeaderViewModel"/>
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@color/colorAccent"
+                  android:paddingStart="16dp"
+                  android:paddingEnd="16dp"
+                  android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
+            android:layout_marginTop="13dp"
+            android:contentDescription="@string/westside_logo"
+            android:src="@mipmap/ic_launcher"/>
+        <TextView
+            android:layout_marginBottom="18dp"
+            tools:text="example@example.example"
+            android:text="@{vm.email}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</layout>
