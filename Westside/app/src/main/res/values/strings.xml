@@ -9,4 +9,5 @@
     <string name="drawer_open">open</string>
     <string name="drawer_close">close</string>
     <string name="westside_logo">westside logo</string>
+    <string name="something_went_wrong">Oops, somthing went wrong</string>
 </resources>

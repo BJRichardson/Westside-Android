@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import com.digicraft.westside.R
+import com.digicraft.westside.ui.events.EventsFragment
 import java.lang.IllegalStateException
 
 
@@ -18,7 +19,7 @@ class TabbedPagerAdapter(fm: FragmentManager, val applicationContext: Context) :
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> Fragment()
-            1 -> Fragment()
+            1 -> EventsFragment()
             2 -> Fragment()
             3 -> Fragment()
             else -> throw IllegalStateException()
