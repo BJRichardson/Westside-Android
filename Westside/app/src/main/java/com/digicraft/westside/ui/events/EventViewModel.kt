@@ -2,15 +2,11 @@ package com.digicraft.westside.ui.events
 
 import android.content.Context
 import android.databinding.BaseObservable
-import com.digicraft.westside.R
 import com.digicraft.westside.models.Westside
 import java.text.SimpleDateFormat
 import java.util.*
 
 open class EventViewModel(val event: Westside.Event, val context: Context?) : BaseObservable() {
-        val coverUrl: String?
-            get() = ""
-
     val title: String?
         get() = event.title
 

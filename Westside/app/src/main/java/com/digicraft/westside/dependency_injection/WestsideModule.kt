@@ -6,7 +6,9 @@ import com.digicraft.westside.WestsideConfig
 import com.digicraft.westside.managers.WestsideServiceManager
 import com.digicraft.westside.models.Westside
 import com.digicraft.westside.service.WestsideService
+import com.digicraft.westside.ui.announcements.AnnouncementsAdapter
 import com.digicraft.westside.ui.events.EventsAdapter
+import com.digicraft.westside.ui.prayers.PrayersAdapter
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
@@ -74,5 +76,15 @@ class WestsideModule(private val application: Application) {
     @Provides
     fun providesFeedAdapter(): EventsAdapter {
         return EventsAdapter (ArrayList<Westside.Event>())
+    }
+
+    @Provides
+    fun providesAnnouncementsAdapter(): AnnouncementsAdapter {
+        return AnnouncementsAdapter (ArrayList<Westside.Announcement>())
+    }
+
+    @Provides
+    fun providesPrayersAdapter(): PrayersAdapter {
+        return PrayersAdapter (ArrayList<Westside.Prayer>())
     }
 }

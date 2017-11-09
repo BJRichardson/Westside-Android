@@ -5,7 +5,9 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import com.digicraft.westside.R
+import com.digicraft.westside.ui.announcements.AnnouncementsFragment
 import com.digicraft.westside.ui.events.EventsFragment
+import com.digicraft.westside.ui.prayers.PrayersFragment
 import java.lang.IllegalStateException
 
 
@@ -20,8 +22,8 @@ class TabbedPagerAdapter(fm: FragmentManager, val applicationContext: Context) :
         return when (position) {
             0 -> Fragment()
             1 -> EventsFragment()
-            2 -> Fragment()
-            3 -> Fragment()
+            2 -> AnnouncementsFragment()
+            3 -> PrayersFragment()
             else -> throw IllegalStateException()
         }
     }
@@ -34,7 +36,7 @@ class TabbedPagerAdapter(fm: FragmentManager, val applicationContext: Context) :
         val fragment = getItem(position)
 //        return when (fragment) {
 //            is TicketListFragment -> applicationContext.getString(R.string.services)
-//            is BarContainerFragment -> applicationContext.getString(R.string.events)
+//            is BarContainerFragment -> applicationContext.getString(R.string.announncements)
 //            is FoxLocationsFragment -> applicationContext.getString(R.string.announcements)
 //            is FoxLocationsFragment -> applicationContext.getString(R.string.prayers)
         return when (position) {

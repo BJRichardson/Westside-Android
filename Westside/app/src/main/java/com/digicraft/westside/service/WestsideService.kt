@@ -11,6 +11,12 @@ interface WestsideService {
     @GET(value = "events")
     fun fetchEvents(): Observable<List<Westside.Event>>
 
+    @GET(value = "announcements")
+    fun fetchAnnouncements(): Observable<List<Westside.Announcement>>
+
+    @GET(value = "prayers")
+    fun fetchPrayers(): Observable<List<Westside.Prayer>>
+
     class HeaderInterceptor : Interceptor {
         companion object {
             val base64BasicAuthHeader = String(Base64.encode("com.westside.backend:fellowship1953".toByteArray(), Base64.NO_WRAP))

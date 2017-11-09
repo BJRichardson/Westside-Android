@@ -11,8 +11,12 @@ class Westside {
                     @SerializedName("_id") val id: String?,
                     @SerializedName("imageUrl") val imageUrl: String?,
                     @SerializedName("lastActionDate") val lastActionDate: String?,
+                    @SerializedName("firstName") val firstName: String?,
+                    @SerializedName("lastName") val lastName: String?,
                     @SerializedName("createdDate") val createdDate: String?) : Parcelable {
         constructor(parcel: Parcel) : this(
+                parcel.readString(),
+                parcel.readString(),
                 parcel.readString(),
                 parcel.readString(),
                 parcel.readString(),
@@ -26,6 +30,8 @@ class Westside {
             parcel.writeString(id)
             parcel.writeString(imageUrl)
             parcel.writeString(lastActionDate)
+            parcel.writeString(firstName)
+            parcel.writeString(lastName)
             parcel.writeString(createdDate)
         }
 
@@ -114,6 +120,82 @@ class Westside {
             parcel.writeString(email)
             parcel.writeString(phone)
             parcel.writeString(imageUrl)
+        }
+
+        override fun describeContents(): Int {
+            return 0
+        }
+
+        companion object CREATOR : Parcelable.Creator<User> {
+            override fun createFromParcel(parcel: Parcel): User {
+                return User(parcel)
+            }
+
+            override fun newArray(size: Int): Array<User?> {
+                return arrayOfNulls(size)
+            }
+        }
+    }
+
+    open class Announcement(@SerializedName("_id") val id: Int,
+                            @SerializedName("announcement") val announcement: String,
+                            @SerializedName("createdDate") val createdDate: Date,
+                            @SerializedName("updatedDate") val updatedDate: Date?,
+                            @SerializedName("imageUrl") val imageUrl: String?,
+                            @SerializedName("groupid") val groupId: Int,
+                            @SerializedName("poster") val poster: User) : Parcelable {
+        constructor(parcel: Parcel) : this(
+                parcel.readInt(),
+                parcel.readString(),
+                Date(parcel.readLong()),
+                Date(parcel.readLong()),
+                parcel.readString(),
+                parcel.readInt(),
+                parcel.readParcelable(User::class.java.classLoader))
+
+        override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeInt(id)
+            parcel.writeString(announcement)
+            parcel.writeLong(createdDate.time)
+            parcel.writeLong(if (updatedDate != null) updatedDate.time else 0)
+            parcel.writeString(imageUrl)
+            parcel.writeInt(groupId)
+            parcel.writeParcelable(poster, flags)
+        }
+
+        override fun describeContents(): Int {
+            return 0
+        }
+
+        companion object CREATOR : Parcelable.Creator<User> {
+            override fun createFromParcel(parcel: Parcel): User {
+                return User(parcel)
+            }
+
+            override fun newArray(size: Int): Array<User?> {
+                return arrayOfNulls(size)
+            }
+        }
+    }
+
+    open class Prayer(@SerializedName("_id") val id: Int,
+                      @SerializedName("prayer") val prayer: String,
+                      @SerializedName("createdDate") val createdDate: Date,
+                      @SerializedName("updatedDate") val updatedDate: Date?,
+                      @SerializedName("poster") val poster: User) : Parcelable {
+        constructor(parcel: Parcel) : this(
+                parcel.readInt(),
+                parcel.readString(),
+                Date(parcel.readLong()),
+                Date(parcel.readLong()),
+                parcel.readParcelable(User::class.java.classLoader))
+
+        override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeInt(id)
+            parcel.writeString(prayer)
+            parcel.writeLong(createdDate.time)
+            parcel.writeLong(if (updatedDate != null) updatedDate.time else 0)
+            parcel.writeParcelable(poster, flags)
         }
 
         override fun describeContents(): Int {

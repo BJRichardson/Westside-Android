@@ -13,4 +13,24 @@ interface Receivable {
             Log.e("ERROR", error.message, null)
         }
     }
+
+    interface Announcement : ErrorExtractable {
+        fun onAnnouncementReceived(posts: List<Westside.Announcement>) {
+            //NOP
+        }
+
+        fun onAnnouncementReceivedError(error: Throwable) {
+            Log.e("ERROR", error.message, null)
+        }
+    }
+
+    interface Prayer : ErrorExtractable {
+        fun onPrayerReceived(posts: List<Westside.Prayer>) {
+            //NOP
+        }
+
+        fun onPrayerReceivedError(error: Throwable) {
+            Log.e("ERROR", error.message, null)
+        }
+    }
 }
