@@ -8,5 +8,7 @@ class WestsideConfig {
         val BASE_64_BASIC_AUTH_HEADER: String = Base64.encodeToString("com.westside.backend:fellowship1953".toByteArray(), Base64.DEFAULT)
         val NUMBER_OF_TIMES_TO_RETRY: Int = 3
         val RETRY_DELAY_IN_MILLISECONDS: Long = 750
+        val TOKEN_KEY: String = "fox_token"
+        val DEFAULT_TOKEN: String = "INVALID_TOKEN"
     }
 }

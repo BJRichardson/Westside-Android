@@ -1,9 +1,41 @@
 package com.digicraft.westside.interfaces
 
+import android.content.res.Resources
 import android.util.Log
+import com.digicraft.westside.R
 import com.digicraft.westside.models.Westside
+import retrofit2.HttpException
 
 interface Receivable {
+    interface Token : ErrorExtractable {
+        fun onTokenReceived(token: Westside.Token) {
+            //NOP
+        }
+
+        fun onTokenReceivedError(error: Throwable) {
+            //NOP
+        }
+
+        override fun errorTextFromException(throwable: Throwable, resources: Resources): String {
+            return if (throwable is HttpException) {
+                when (throwable.code()) {
+                    503 -> resources.getString(R.string.server_down)
+                    else -> super.errorTextFromException(throwable, resources)
+                }
+            } else super.errorTextFromException(throwable, resources)
+        }
+    }
+
+    interface User : ErrorExtractable {
+        fun onUserReceived(user: Westside.User) {
+            //NOP
+        }
+
+        fun onUserReceivedError(error: Throwable) {
+            //NOP
+        }
+    }
+
     interface Event : ErrorExtractable {
         fun onEventReceived(posts: List<Westside.Event>) {
             //NOP

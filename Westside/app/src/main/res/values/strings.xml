@@ -11,4 +11,18 @@
     <string name="westside_logo">westside logo</string>
     <string name="something_went_wrong">Oops, somthing went wrong</string>
     <string name="long_sample_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_in_caps">SIGN IN</string>
+    <string name="create_account">Create Account</string>
+    <string name="email_validation_error">Enter a valid email address</string>
+    <string name="password_validation_string">Must be at least 6 characters</string>
+    <string name="server_down">Westside server is down</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="confirm_password_validation_error">Passwords do not match</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="i_am_a_subscriberr">I am a Subscriberr</string>
 </resources>

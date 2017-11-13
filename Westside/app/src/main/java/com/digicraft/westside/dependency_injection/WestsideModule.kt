@@ -3,8 +3,11 @@ package com.digicraft.westside.dependency_injection
 import android.app.Application
 import android.content.SharedPreferences
 import com.digicraft.westside.WestsideConfig
+import com.digicraft.westside.managers.AuthenticatedServiceManager
+import com.digicraft.westside.managers.WestsideCacheManager
 import com.digicraft.westside.managers.WestsideServiceManager
 import com.digicraft.westside.models.Westside
+import com.digicraft.westside.service.AuthenticatedService
 import com.digicraft.westside.service.WestsideService
 import com.digicraft.westside.ui.announcements.AnnouncementsAdapter
 import com.digicraft.westside.ui.events.EventsAdapter
@@ -36,8 +39,13 @@ class WestsideModule(private val application: Application) {
     }
 
     @Provides @Singleton
-    fun provideTestDriveHeaderInterceptor(): WestsideService.HeaderInterceptor {
+    fun provideWestsideHeaderInterceptor(): WestsideService.HeaderInterceptor {
         return WestsideService.HeaderInterceptor()
+    }
+
+    @Provides @Singleton
+    fun provideAuthenticatedHeaderInterceptor(cacheManager: WestsideCacheManager): AuthenticatedService.HeaderInterceptor {
+        return AuthenticatedService.HeaderInterceptor(cacheManager)
     }
 
     @Provides
@@ -50,7 +58,7 @@ class WestsideModule(private val application: Application) {
     }
 
     @Provides @Singleton
-    fun provideTestDriveService(builder: OkHttpClient.Builder, headerInterceptor: WestsideService.HeaderInterceptor): WestsideService {
+    fun provideWestsideService(builder: OkHttpClient.Builder, headerInterceptor: WestsideService.HeaderInterceptor): WestsideService {
 
         builder.addInterceptor(headerInterceptor)
 
@@ -64,13 +72,35 @@ class WestsideModule(private val application: Application) {
     }
 
     @Provides @Singleton
+    fun provideAuthenticatedService(builder: OkHttpClient.Builder, headerInterceptor: AuthenticatedService.HeaderInterceptor): AuthenticatedService {
+        builder.addInterceptor(headerInterceptor)
+        val retrofit = Retrofit.Builder()
+                .client(builder.build())
+                .baseUrl(WestsideConfig.BASE_URL)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        return retrofit.create(AuthenticatedService::class.java)
+    }
+
+    @Provides @Singleton
+    fun provideAuthenticatedFoxServiceManager(serviceManager: WestsideServiceManager, service: AuthenticatedService, cacheManager: WestsideCacheManager): AuthenticatedServiceManager {
+        return AuthenticatedServiceManager(serviceManager, service, cacheManager)
+    }
+
+    @Provides @Singleton
     fun provideSharedPreferences(application: Application): SharedPreferences {
         return application.getSharedPreferences("testDrivePreferences", Application.MODE_PRIVATE)
     }
 
     @Provides @Singleton
-    fun providesTestDriveServiceManager(service: WestsideService): WestsideServiceManager {
-        return WestsideServiceManager(service)
+    fun providesCacheManager(preferences: SharedPreferences): WestsideCacheManager {
+        return WestsideCacheManager(preferences)
+    }
+
+    @Provides @Singleton
+    fun providesWestsideServiceManager(service: WestsideService, cacheManager: WestsideCacheManager): WestsideServiceManager {
+        return WestsideServiceManager(service, cacheManager)
     }
 
     @Provides

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/socialGroup" android:checkableBehavior="none">
+        <item
+            android:id="@+id/contact_us"
+            android:icon="@mipmap/icon_contact"
+            android:title="@string/contact_us"/>
+        <!--<item-->
+            <!--android:id="@+id/facebook"-->
+            <!--android:icon="@mipmap/icon_facebook"-->
+            <!--android:title="@string/facebook"/>-->
+        <!--<item-->
+            <!--android:id="@+id/twitter"-->
+            <!--android:icon="@mipmap/icon_twitter"-->
+            <!--android:title="@string/twitter"/>-->
+        <!--<item-->
+            <!--android:id="@+id/instagram"-->
+            <!--android:icon="@mipmap/icon_instagram"-->
+            <!--android:title="@string/instagram"/>-->
+    </group>
+    <group android:id="@+id/account" android:checkableBehavior="none">
+        <item
+            android:id="@+id/create_account"
+            android:title="@string/create_account"/>
+        <item
+            android:id="@+id/sign_in"
+            android:title="@string/sign_in"/>
+    </group>
+    <group android:id="@+id/logout" android:checkableBehavior="none">
+        <item
+            android:id="@+id/sign_out"
+            android:title="@string/sign_out"/>
+    </group>
+    <!--<group android:id="@+id/account_logged_in" android:checkableBehavior="none">-->
+        <!--<item-->
+            <!--android:id="@+id/account_details"-->
+            <!--android:title="@string/account_details"/>-->
+    <!--</group>-->
+    <!--<group android:id="@+id/feedbackGroup" android:checkableBehavior="none">-->
+        <!--<item android:title="@string/app_support">-->
+            <!--<menu>-->
+                <!--<item-->
+                    <!--android:id="@+id/privacy"-->
+                    <!--android:title="@string/privacy_policy"/>-->
+                <!--<item-->
+                    <!--android:id="@+id/feedback"-->
+                    <!--android:title="@string/feedback"/>-->
+            <!--</menu>-->
+        <!--</item>-->
+    <!--</group>-->
+</menu>

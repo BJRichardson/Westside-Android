@@ -8,13 +8,17 @@ import java.util.*
 class Westside {
     open class User(@SerializedName("username") val username: String,
                     @SerializedName("password") val password: String,
+                    @SerializedName("email") val email: String?,
                     @SerializedName("_id") val id: String?,
                     @SerializedName("imageUrl") val imageUrl: String?,
-                    @SerializedName("lastActionDate") val lastActionDate: String?,
-                    @SerializedName("firstName") val firstName: String?,
-                    @SerializedName("lastName") val lastName: String?,
-                    @SerializedName("createdDate") val createdDate: String?) : Parcelable {
+                    @SerializedName("phone") val phone: String?,
+                    @SerializedName("address") val address: String?,
+                    @SerializedName("firstName") val firstName: String,
+                    @SerializedName("lastName") val lastName: String,
+                    @SerializedName("roles") val roles: String?) : Parcelable {
         constructor(parcel: Parcel) : this(
+                parcel.readString(),
+                parcel.readString(),
                 parcel.readString(),
                 parcel.readString(),
                 parcel.readString(),
@@ -27,12 +31,14 @@ class Westside {
         override fun writeToParcel(parcel: Parcel, flags: Int) {
             parcel.writeString(username)
             parcel.writeString(password)
+            parcel.writeString(email)
             parcel.writeString(id)
             parcel.writeString(imageUrl)
-            parcel.writeString(lastActionDate)
+            parcel.writeString(phone)
+            parcel.writeString(address)
             parcel.writeString(firstName)
             parcel.writeString(lastName)
-            parcel.writeString(createdDate)
+            parcel.writeString(roles)
         }
 
         override fun describeContents(): Int {
@@ -213,5 +219,19 @@ class Westside {
         }
     }
 
+    class Token(@SerializedName("access_token") val accessToken: String,
+                @SerializedName("refresh_token") val refreshToken: String,
+                @SerializedName("token_type") val tokenType: String,
+                @SerializedName("expires_in") val expiresIn: String)
+
     class Error(val error: String)
+
+    class New {
+        class User(username: String,
+                   password: String,
+                   firstName: String,
+                   lastName: String,
+                   phone: String?) : Westside.User(username, password, null, null, null, phone, null, firstName, lastName, null )
+        //open class Device(val token: String, val type: String = "android")
+    }
 }

@@ -1,0 +1,45 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.digicraft.westside.ui.account.SignInViewModel"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorOffWhite"
+        android:orientation="vertical">
+
+        <include layout="@layout/view_sign_in_form"
+                 app:vm="@{vm}"/>
+
+        <include
+            layout="@layout/view_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="11dp"
+            android:layout_marginLeft="31dp"
+            android:layout_marginRight="31dp"
+            android:background="@drawable/rounded_button"
+            android:onClick="@{() -> vm.onSignInClicked()}"
+            android:text="@{vm.signInButtonText}"
+            android:textColor="@color/colorOffWhite"/>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="11dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:visibility="@{vm.progressBarVisibility}"/>
+    </FrameLayout>
+</layout>

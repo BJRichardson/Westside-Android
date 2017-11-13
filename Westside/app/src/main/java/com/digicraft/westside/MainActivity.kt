@@ -14,14 +14,26 @@ import com.digicraft.westside.databinding.ActivityMainBinding
 import com.digicraft.westside.databinding.ViewDrawerHeaderBinding
 import com.digicraft.westside.extensions.setupToolbar
 import com.digicraft.westside.extensions.westsideComponent
+import com.digicraft.westside.interfaces.Receivable
+import com.digicraft.westside.managers.AuthenticatedServiceManager
+import com.digicraft.westside.managers.ReauthenticationListener
+import com.digicraft.westside.managers.WestsideCacheManager
+import com.digicraft.westside.models.Westside
 import com.digicraft.westside.ui.drawer.HeaderViewModel
 import com.digicraft.westside.ui.drawer.WestsideDrawerOnClickListener
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.view_toolbar.*
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Receivable.User, ReauthenticationListener {
     private lateinit var drawerToggle: ActionBarDrawerToggle
+
+    @Inject
+    lateinit var serviceManager: AuthenticatedServiceManager
+
+    @Inject
+    lateinit var cacheManager: WestsideCacheManager
 
     private val headerViewModel = HeaderViewModel()
     private lateinit var westsideDrawerListener: WestsideDrawerOnClickListener
@@ -59,12 +71,25 @@ class MainActivity : AppCompatActivity() {
         drawerLayout.addDrawerListener(drawerToggle)
     }
 
+    override fun onResume() {
+        super.onResume()
+        //FirebaseInstanceId.getInstance().getToken()
+        serviceManager.addReauthenticationListener(this)
+        getUser()
+    }
+
+    private fun getUser() {
+        val observable = serviceManager.getUser()
+        observable.subscribe(headerViewModel::onUserRecieved, headerViewModel::onError)
+        observable.subscribe(this::onUserReceived, this::onUserReceivedError)
+    }
+
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
         // Sync the toggle state after onRestoreInstanceState has occurred.
         drawerToggle.syncState()
         // Sync auth state of drawer
-        //setOptionsMenuAuthenticatedState(navigation.menu, serviceManager.isAuthenticated)
+        setOptionsMenuAuthenticatedState(navigation.menu, serviceManager.isAuthenticated)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -87,6 +112,29 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    private fun setOptionsMenuAuthenticatedState(theMenu: Menu?, isAuthenticated: Boolean) {
+        navigation.menu.setGroupVisible(R.id.account, !isAuthenticated)
+        navigation.menu.setGroupVisible(R.id.logout, isAuthenticated)
+    }
+
+    override fun onUserReceived(user: Westside.User) {
+        westsideDrawerListener.user = user
+        setOptionsMenuAuthenticatedState(navigation.menu, serviceManager.isAuthenticated)
+    }
+
+    override fun onUserReceivedError(error: Throwable) {
+        super.onUserReceivedError(error)
+        setOptionsMenuAuthenticatedState(navigation.menu, serviceManager.isAuthenticated)
+    }
+
+    override fun onReauthenticated(token: Westside.Token) {
+        getUser()
+    }
+
+    fun onLogoutClicked() {
+        cacheManager.clearToken()
+        setOptionsMenuAuthenticatedState(navigation.menu, serviceManager.isAuthenticated)
+    }
 }
 
 interface OnBackPressed {

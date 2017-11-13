@@ -1,6 +1,7 @@
 package com.digicraft.westside.ui.drawer
 
 import android.databinding.BaseObservable
+import com.digicraft.westside.models.Westside
 
 class HeaderViewModel: BaseObservable() {
     var email: String = ""
@@ -8,11 +9,12 @@ class HeaderViewModel: BaseObservable() {
             field = value
             notifyChange()
         }
-//    fun onUserRecieved(user: Fox.User) {
-//        email = user.emailAddress
-//    }
-//
-//    fun onError(throwable: Throwable) {
-//        email = ""
-//    }
+    fun onUserRecieved(user: Westside.User) {
+        //TODO Change to first name, last name
+        //email = user.email
+    }
+
+    fun onError(throwable: Throwable) {
+        email = ""
+    }
 }

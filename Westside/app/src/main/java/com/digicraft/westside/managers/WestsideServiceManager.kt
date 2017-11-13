@@ -1,12 +1,14 @@
 package com.digicraft.westside.managers
 
+import com.digicraft.westside.WestsideConfig
 import com.digicraft.westside.extensions.sharedNetworkSubscription
 import com.digicraft.westside.interfaces.Receivable
 import com.digicraft.westside.models.Westside
+import com.digicraft.westside.service.RetryAfterTimeoutWithDelay
 import com.digicraft.westside.service.WestsideService
 import io.reactivex.Observable
 
-class WestsideServiceManager(val service: WestsideService) : WestsideService, Receivable.Event, Receivable.Announcement, Receivable.Prayer {
+class WestsideServiceManager(val service: WestsideService, private val cacheManager: WestsideCacheManager) : WestsideService, Receivable.Event, Receivable.Announcement, Receivable.Prayer, Receivable.Token {
     override fun fetchEvents(): Observable<List<Westside.Event>> {
         val observable = service.fetchEvents()
                 .sharedNetworkSubscription()
@@ -28,6 +30,30 @@ class WestsideServiceManager(val service: WestsideService) : WestsideService, Re
         return observable
     }
 
+    override fun signIn(emailAddress: String, password: String, grantType: String): Observable<Westside.Token> {
+        val observable = service.signIn(emailAddress, password, grantType)
+                .sharedNetworkSubscription()
+                .retryWhen(RetryAfterTimeoutWithDelay(WestsideConfig.NUMBER_OF_TIMES_TO_RETRY, WestsideConfig.RETRY_DELAY_IN_MILLISECONDS))
+        observable.subscribe(this::onTokenReceived, this::onTokenReceivedError)
+        return observable
+    }
+
+    override fun refresh(refreshToken: String, grantType: String): Observable<Westside.Token> {
+        val observable = service.refresh(refreshToken, grantType)
+                .sharedNetworkSubscription()
+                .retryWhen(RetryAfterTimeoutWithDelay(WestsideConfig.NUMBER_OF_TIMES_TO_RETRY, WestsideConfig.RETRY_DELAY_IN_MILLISECONDS))
+        observable.subscribe(this::onTokenReceived, this::onTokenReceivedError)
+        return observable
+    }
+
+    override fun register(user: Westside.New.User): Observable<Westside.Token> {
+        val observable = service.register(user)
+                .sharedNetworkSubscription()
+                .retryWhen(RetryAfterTimeoutWithDelay(WestsideConfig.NUMBER_OF_TIMES_TO_RETRY, WestsideConfig.RETRY_DELAY_IN_MILLISECONDS))
+        observable.subscribe(this::onTokenReceived, this::onTokenReceivedError)
+        return observable
+    }
+
     override fun onEventReceived(posts: List<Westside.Event>) {
         //NOOP
     }
@@ -38,5 +64,10 @@ class WestsideServiceManager(val service: WestsideService) : WestsideService, Re
 
     override fun onPrayerReceived(posts: List<Westside.Prayer>) {
         //NOOP
+    }
+
+    override fun onTokenReceived(token: Westside.Token) {
+        //cache the token & store in memory
+        cacheManager.cache(token)
     }
 }

@@ -17,6 +17,17 @@ interface WestsideService {
     @GET(value = "prayers")
     fun fetchPrayers(): Observable<List<Westside.Prayer>>
 
+    @FormUrlEncoded
+    @POST(value = "auth/token")
+    fun signIn(@Field("username") emailAddress: String, @Field("password") password: String, @Field("grant_type") grantType: String = "password"): Observable<Westside.Token>
+
+    @FormUrlEncoded
+    @POST(value = "auth/token")
+    fun refresh(@Field("refresh_token") refreshToken: String, @Field("grant_type") grantType: String = "refresh_token"): Observable<Westside.Token>
+
+    @POST(value = "register")
+    fun register(@Body user: Westside.New.User): Observable<Westside.Token>
+
     class HeaderInterceptor : Interceptor {
         companion object {
             val base64BasicAuthHeader = String(Base64.encode("com.westside.backend:fellowship1953".toByteArray(), Base64.NO_WRAP))
