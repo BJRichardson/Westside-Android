@@ -35,7 +35,6 @@ class CreateAccountViewModel(val resources: Resources, val service: WestsideServ
                     .replace(" ", "")
                     .replace("-", "")
         }
-    var isBroadwaySubscriber = false
 
     private var isLoading: Boolean = false
         set(value) {

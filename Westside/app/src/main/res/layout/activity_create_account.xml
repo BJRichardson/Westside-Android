@@ -34,7 +34,7 @@
             android:background="@drawable/rounded_button"
             android:onClick="@{() -> vm.onRegisterClicked()}"
             android:text="@{vm.createAccountButtonText}"
-            android:textColor="@color/colorPrimary"/>
+            android:textColor="@color/colorOffWhite"/>
 
         <ProgressBar
             android:layout_width="wrap_content"
