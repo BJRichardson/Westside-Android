@@ -1,7 +1,8 @@
 package com.digicraft.westside.models
 
 import android.os.Parcel
-import android.os.Parcelable
+import com.digicraft.westside.utils.KParcelable
+import com.digicraft.westside.utils.parcelableCreator
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
@@ -15,7 +16,7 @@ class Westside {
                     @SerializedName("address") val address: String?,
                     @SerializedName("firstName") val firstName: String,
                     @SerializedName("lastName") val lastName: String,
-                    @SerializedName("roles") val roles: String?) : Parcelable {
+                    @SerializedName("roles") val roles: String?) : KParcelable {
         constructor(parcel: Parcel) : this(
                 parcel.readString(),
                 parcel.readString(),
@@ -41,35 +42,25 @@ class Westside {
             parcel.writeString(roles)
         }
 
-        override fun describeContents(): Int {
-            return 0
-        }
-
-        companion object CREATOR : Parcelable.Creator<User> {
-            override fun createFromParcel(parcel: Parcel): User {
-                return User(parcel)
-            }
-
-            override fun newArray(size: Int): Array<User?> {
-                return arrayOfNulls(size)
-            }
+        companion object {
+            @JvmField val CREATOR = parcelableCreator(::User)
         }
     }
 
-    class Event(@SerializedName("_id") val id: String,
+    class Event(@SerializedName("_id") val id: Int,
                 @SerializedName("title") val title: String,
                 @SerializedName("description") val description: String?,
                 @SerializedName("startTime") val startTime: Date,
                 @SerializedName("endTime") val endTime: Date?,
                 @SerializedName("moreInformation") val moreInformation: String?,
                 @SerializedName("imageUrl") val imageUrl: String?,
-                @SerializedName("groups") val groups: List<Group>) : Parcelable {
+                @SerializedName("groups") val groups: List<Group>) : KParcelable {
         init {
 
         }
 
         constructor(parcel: Parcel) : this(
-                parcel.readString(),
+                parcel.readInt(),
                 parcel.readString(),
                 parcel.readString(),
                 Date(parcel.readLong()),
@@ -81,7 +72,7 @@ class Westside {
         }
 
         override fun writeToParcel(parcel: Parcel, flags: Int) {
-            parcel.writeString(id)
+            parcel.writeInt(id)
             parcel.writeString(title)
             parcel.writeString(description)
             parcel.writeLong(startTime.time)
@@ -91,30 +82,20 @@ class Westside {
             parcel.writeList(groups)
         }
 
-        override fun describeContents(): Int {
-            return 0
-        }
-
-        companion object CREATOR : Parcelable.Creator<Event> {
-            override fun createFromParcel(parcel: Parcel): Event {
-                return Event(parcel)
-            }
-
-            override fun newArray(size: Int): Array<Event?> {
-                return arrayOfNulls(size)
-            }
+        companion object {
+            @JvmField val CREATOR = parcelableCreator(::Event)
         }
     }
 
-    open class Group(@SerializedName("_id") val id: String,
+    open class Group(@SerializedName("_id") val id: Int,
                      @SerializedName("name") val name: String,
                      @SerializedName("description") val description: String?,
                      @SerializedName("chairperson") val chairperson: String?,
                      @SerializedName("email") val email: String?,
                      @SerializedName("phone") val phone: String?,
-                     @SerializedName("imageUrl") val imageUrl: String?) : Parcelable {
+                     @SerializedName("imageUrl") val imageUrl: String?) : KParcelable {
         constructor(parcel: Parcel) : this(
-                parcel.readString(),
+                parcel.readInt(),
                 parcel.readString(),
                 parcel.readString(),
                 parcel.readString(),
@@ -123,7 +104,7 @@ class Westside {
                 parcel.readString())
 
         override fun writeToParcel(parcel: Parcel, flags: Int) {
-            parcel.writeString(id)
+            parcel.writeInt(id)
             parcel.writeString(name)
             parcel.writeString(description)
             parcel.writeString(chairperson)
@@ -132,18 +113,8 @@ class Westside {
             parcel.writeString(imageUrl)
         }
 
-        override fun describeContents(): Int {
-            return 0
-        }
-
-        companion object CREATOR : Parcelable.Creator<Group> {
-            override fun createFromParcel(parcel: Parcel): Group {
-                return Group(parcel)
-            }
-
-            override fun newArray(size: Int): Array<Group?> {
-                return arrayOfNulls(size)
-            }
+        companion object {
+            @JvmField val CREATOR = parcelableCreator(::Group)
         }
     }
 
@@ -153,7 +124,7 @@ class Westside {
                             @SerializedName("updatedDate") val updatedDate: Date?,
                             @SerializedName("imageUrl") val imageUrl: String?,
                             @SerializedName("groupid") val groupId: Int,
-                            @SerializedName("poster") val poster: User) : Parcelable {
+                            @SerializedName("poster") val poster: User) : KParcelable {
         constructor(parcel: Parcel) : this(
                 parcel.readInt(),
                 parcel.readString(),
@@ -173,18 +144,8 @@ class Westside {
             parcel.writeParcelable(poster, flags)
         }
 
-        override fun describeContents(): Int {
-            return 0
-        }
-
-        companion object CREATOR : Parcelable.Creator<Announcement> {
-            override fun createFromParcel(parcel: Parcel): Announcement {
-                return Announcement(parcel)
-            }
-
-            override fun newArray(size: Int): Array<Announcement?> {
-                return arrayOfNulls(size)
-            }
+        companion object {
+            @JvmField val CREATOR = parcelableCreator(::Announcement)
         }
     }
 
@@ -192,7 +153,7 @@ class Westside {
                       @SerializedName("prayer") val prayer: String,
                       @SerializedName("createdDate") val createdDate: Date,
                       @SerializedName("updatedDate") val updatedDate: Date?,
-                      @SerializedName("poster") val poster: User) : Parcelable {
+                      @SerializedName("poster") val poster: User) : KParcelable {
         constructor(parcel: Parcel) : this(
                 parcel.readInt(),
                 parcel.readString(),
@@ -208,18 +169,8 @@ class Westside {
             parcel.writeParcelable(poster, flags)
         }
 
-        override fun describeContents(): Int {
-            return 0
-        }
-
-        companion object CREATOR : Parcelable.Creator<Prayer> {
-            override fun createFromParcel(parcel: Parcel): Prayer {
-                return Prayer(parcel)
-            }
-
-            override fun newArray(size: Int): Array<Prayer?> {
-                return arrayOfNulls(size)
-            }
+        companion object {
+            @JvmField val CREATOR = parcelableCreator(::Prayer)
         }
     }
 

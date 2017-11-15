@@ -1,5 +1,5 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="48dp"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorGrey"
             android:orientation="vertical">
 
             <LinearLayout
@@ -24,9 +24,24 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <include
-                    layout="@layout/view_event"
-                    bind:vm="@{vm}" />
+                <ImageView
+                    android:id="@+id/coverImageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:contentDescription="@{vm.coverUrl}"
+                    android:scaleType="centerCrop"
+                    tools:imageUrl="@{vm.coverUrl}"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="4dp"
+                    android:text="@{vm.title}"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    tools:text="Revival Extranvaganza" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -34,11 +49,12 @@
                     android:autoLink="web|phone|email"
                     android:linksClickable="true"
                     android:paddingBottom="75dp"
-                    android:paddingLeft="19dp"
+                    android:paddingLeft="8dp"
                     android:paddingRight="19dp"
-                    android:paddingTop="19dp"
+                    android:paddingTop="8dp"
                     android:text="@{vm.eventDescription}"
-                    android:textColor="@color/colorPrimaryDark" />
+                    android:textColor="@color/colorPrimaryDark"
+                    tools:text="@string/long_sample_text"/>
 
             </LinearLayout>
         </ScrollView>
@@ -59,7 +75,7 @@
             android:background="@drawable/rounded_button"
             android:onClick="@{vm::onAddEventClicked}"
             android:text="@string/add_event"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorOffWhite"
             android:visibility="@{vm.addButtonVisibility}" />
     </FrameLayout>
 </layout>

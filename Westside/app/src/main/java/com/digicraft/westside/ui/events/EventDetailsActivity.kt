@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import android.widget.Toast
 import com.digicraft.westside.R
 import com.digicraft.westside.WestsideConfig
 import com.digicraft.westside.databinding.ActivityEventDetailsBinding
@@ -30,9 +31,9 @@ class EventDetailsActivity : AppCompatActivity() {
             window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimary)
         }
 
+        event = intent.getParcelableExtra<Westside.Event>(WestsideConfig.EVENT_KEY)
         val binding = DataBindingUtil.setContentView<ActivityEventDetailsBinding>(this, R.layout.activity_event_details)
-        event = intent.getParcelableExtra(WestsideConfig.EVENT_KEY)
-        binding.vm = EventDetailsViewModel(event, this, serviceManager.isAuthenticated)
+        binding.vm = EventDetailsViewModel(event, this)
 
         setupToolbar(customToolbar)
     }
@@ -43,5 +44,11 @@ class EventDetailsActivity : AppCompatActivity() {
             return true
         }
         return false
+    }
+
+    fun addEvent(eventId: Int) {
+        if (!serviceManager.isAuthenticated) {
+            Toast.makeText(this, "Please sign in", Toast.LENGTH_LONG).show()
+        }
     }
 }
