@@ -10,5 +10,6 @@ class WestsideConfig {
         val RETRY_DELAY_IN_MILLISECONDS: Long = 750
         val TOKEN_KEY: String = "fox_token"
         val DEFAULT_TOKEN: String = "INVALID_TOKEN"
+        val EVENT_KEY: String = "event"
     }
 }

@@ -56,14 +56,18 @@ class Westside {
         }
     }
 
-    open class Event(@SerializedName("_id") val id: String,
-                     @SerializedName("title") val title: String,
-                     @SerializedName("description") val description: String?,
-                     @SerializedName("startTime") val startTime: Date,
-                     @SerializedName("endTime") val endTime: Date?,
-                     @SerializedName("moreInformation") val moreInformation: String?,
-                     @SerializedName("imageUrl") val imageUrl: String?,
-                     @SerializedName("groups") val groups: List<Group>) : Parcelable {
+    class Event(@SerializedName("_id") val id: String,
+                @SerializedName("title") val title: String,
+                @SerializedName("description") val description: String?,
+                @SerializedName("startTime") val startTime: Date,
+                @SerializedName("endTime") val endTime: Date?,
+                @SerializedName("moreInformation") val moreInformation: String?,
+                @SerializedName("imageUrl") val imageUrl: String?,
+                @SerializedName("groups") val groups: List<Group>) : Parcelable {
+        init {
+
+        }
+
         constructor(parcel: Parcel) : this(
                 parcel.readString(),
                 parcel.readString(),
@@ -91,12 +95,12 @@ class Westside {
             return 0
         }
 
-        companion object CREATOR : Parcelable.Creator<User> {
-            override fun createFromParcel(parcel: Parcel): User {
-                return User(parcel)
+        companion object CREATOR : Parcelable.Creator<Event> {
+            override fun createFromParcel(parcel: Parcel): Event {
+                return Event(parcel)
             }
 
-            override fun newArray(size: Int): Array<User?> {
+            override fun newArray(size: Int): Array<Event?> {
                 return arrayOfNulls(size)
             }
         }
@@ -132,12 +136,12 @@ class Westside {
             return 0
         }
 
-        companion object CREATOR : Parcelable.Creator<User> {
-            override fun createFromParcel(parcel: Parcel): User {
-                return User(parcel)
+        companion object CREATOR : Parcelable.Creator<Group> {
+            override fun createFromParcel(parcel: Parcel): Group {
+                return Group(parcel)
             }
 
-            override fun newArray(size: Int): Array<User?> {
+            override fun newArray(size: Int): Array<Group?> {
                 return arrayOfNulls(size)
             }
         }
@@ -173,12 +177,12 @@ class Westside {
             return 0
         }
 
-        companion object CREATOR : Parcelable.Creator<User> {
-            override fun createFromParcel(parcel: Parcel): User {
-                return User(parcel)
+        companion object CREATOR : Parcelable.Creator<Announcement> {
+            override fun createFromParcel(parcel: Parcel): Announcement {
+                return Announcement(parcel)
             }
 
-            override fun newArray(size: Int): Array<User?> {
+            override fun newArray(size: Int): Array<Announcement?> {
                 return arrayOfNulls(size)
             }
         }
@@ -208,12 +212,12 @@ class Westside {
             return 0
         }
 
-        companion object CREATOR : Parcelable.Creator<User> {
-            override fun createFromParcel(parcel: Parcel): User {
-                return User(parcel)
+        companion object CREATOR : Parcelable.Creator<Prayer> {
+            override fun createFromParcel(parcel: Parcel): Prayer {
+                return Prayer(parcel)
             }
 
-            override fun newArray(size: Int): Array<User?> {
+            override fun newArray(size: Int): Array<Prayer?> {
                 return arrayOfNulls(size)
             }
         }
@@ -231,7 +235,7 @@ class Westside {
                    password: String,
                    firstName: String,
                    lastName: String,
-                   phone: String?) : Westside.User(username, password, null, null, null, phone, null, firstName, lastName, null )
+                   phone: String?) : Westside.User(username, password, null, null, null, phone, null, firstName, lastName, null)
         //open class Device(val token: String, val type: String = "android")
     }
 }

@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import com.digicraft.westside.R
 import com.digicraft.westside.WestsideApplication
@@ -21,8 +22,8 @@ class EventsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val testDriveApplication = context.applicationContext as WestsideApplication
-        testDriveApplication.westsideComponent.inject(this)
+        val westsideApplication = context.applicationContext as WestsideApplication
+        westsideApplication.westsideComponent.inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -44,6 +45,7 @@ class EventsFragment : Fragment() {
     fun onSuccess(eventsList: List<Westside.Event>) {
         eventsAdapter.events = eventsList
         eventsAdapter.notifyDataSetChanged()
+        progressBar.visibility = GONE
         Log.d(EventsFragment::class.simpleName, "Events: ${eventsList.size}")
     }
 

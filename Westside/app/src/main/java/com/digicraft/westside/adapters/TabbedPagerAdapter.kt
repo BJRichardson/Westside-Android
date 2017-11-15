@@ -35,10 +35,10 @@ class TabbedPagerAdapter(fm: FragmentManager, val applicationContext: Context) :
     override fun getPageTitle(position: Int): CharSequence {
         val fragment = getItem(position)
 //        return when (fragment) {
-//            is TicketListFragment -> applicationContext.getString(R.string.services)
-//            is BarContainerFragment -> applicationContext.getString(R.string.announncements)
-//            is FoxLocationsFragment -> applicationContext.getString(R.string.announcements)
-//            is FoxLocationsFragment -> applicationContext.getString(R.string.prayers)
+//            is Fragment -> applicationContext.getString(R.string.services)
+//            is EventsFragment -> applicationContext.getString(R.string.events)
+//            is AnnouncementsFragment -> applicationContext.getString(R.string.announcements)
+//            is PrayersFragment -> applicationContext.getString(R.string.prayers)
         return when (position) {
             0 -> applicationContext.getString(R.string.services)
             1 -> applicationContext.getString(R.string.events)

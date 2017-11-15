@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 open class EventViewModel(val event: Westside.Event, val context: Context?) : BaseObservable() {
-    val title: String?
+    val title: String
         get() = event.title
 
     val ministry: String?
