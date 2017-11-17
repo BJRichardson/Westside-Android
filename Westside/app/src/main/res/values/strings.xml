@@ -28,4 +28,6 @@
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="add_event">Add Event</string>
+    <string name="leave_event">Leave Event</string>
+    <string name="join_event">Join Event</string>
 </resources>

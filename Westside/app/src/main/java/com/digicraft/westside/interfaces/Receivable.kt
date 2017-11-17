@@ -36,6 +36,16 @@ interface Receivable {
         }
     }
 
+    interface UserEvent : ErrorExtractable {
+        fun onUserEventReceived(userEvent: Westside.UserEvent) {
+            //NOP
+        }
+
+        fun onUserEventReceivedError(error: Throwable) {
+            //NOP
+        }
+    }
+
     interface Event : ErrorExtractable {
         fun onEventReceived(posts: List<Westside.Event>) {
             //NOP

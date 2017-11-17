@@ -44,6 +44,7 @@ class PrayersFragment : Fragment() {
     fun onSuccess(prayersList: List<Westside.Prayer>) {
         prayersAdapter.prayers = prayersList
         prayersAdapter.notifyDataSetChanged()
+        progressBar.visibility = View.GONE
         Log.d(PrayersFragment::class.simpleName, "Events: ${prayersList.size}")
     }
 

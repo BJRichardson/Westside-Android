@@ -6,12 +6,19 @@ import com.digicraft.westside.models.Westside
 import io.reactivex.Observable
 import okhttp3.Interceptor
 import okhttp3.Response
-import retrofit2.http.GET
+import okhttp3.ResponseBody
+import retrofit2.http.*
 
 
 interface AuthenticatedService {
     @GET(value = "me")
     fun getUser(): Observable<Westside.User>
+
+    @POST(value = "schedule/{id}")
+    fun joinEvent(@Path("id") eventId: Int): Observable<Westside.UserEvent>
+
+    @DELETE(value = "schedule/{id}")
+    fun leaveEvent(@Path("id") eventId: Int): Observable<ResponseBody>
 
 //    @PUT(value = "devices")
 //    fun registerDevice(@Body device: Fox.New.Device): Observable<Fox.Device>

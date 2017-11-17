@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import com.digicraft.westside.R
 import com.digicraft.westside.WestsideApplication
@@ -45,6 +46,7 @@ class AnnouncementsFragment : Fragment() {
     fun onSuccess(announcementsList: List<Westside.Announcement>) {
         announcementsAdapter.announncements = announcementsList
         announcementsAdapter.notifyDataSetChanged()
+        progressBar.visibility = GONE
         Log.d(AnnouncementsFragment::class.simpleName, "Events: ${announcementsList.size}")
     }
 

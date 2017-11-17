@@ -8,13 +8,16 @@ import com.digicraft.westside.models.Westside
 import com.digicraft.westside.service.AuthenticatedService
 import com.digicraft.westside.service.RetryAfterTimeoutWithDelay
 import io.reactivex.Observable
+import okhttp3.Response
+import okhttp3.ResponseBody
 import retrofit2.HttpException
 
 
-class AuthenticatedServiceManager(private val service: WestsideServiceManager, private val authenticatedService: AuthenticatedService, private val cacheManager: WestsideCacheManager) : AuthenticatedService, Receivable.Token, Receivable.User {
+class AuthenticatedServiceManager(private val service: WestsideServiceManager, private val authenticatedService: AuthenticatedService, private val cacheManager: WestsideCacheManager) : AuthenticatedService, Receivable.Token, Receivable.User, Receivable.UserEvent {
     val isAuthenticated: Boolean
         get() = cacheManager.isAuthenticated
     private var isReauthenticating: Boolean = false
+    private var currentUser: Westside.User? = null
 
     private val listeners: MutableList<ReauthenticationListener> = mutableListOf()
 
@@ -34,8 +37,21 @@ class AuthenticatedServiceManager(private val service: WestsideServiceManager, p
     override fun getUser(): Observable<Westside.User> {
         val observable = authenticatedService.getUser()
                 .sharedNetworkSubscription()
-                .retryWhen(RetryAfterTimeoutWithDelay(WestsideConfig.NUMBER_OF_TIMES_TO_RETRY, WestsideConfig.RETRY_DELAY_IN_MILLISECONDS))
         observable.subscribe(this::onUserReceived, this::onError)
+        return observable
+    }
+
+    override fun joinEvent(eventId: Int): Observable<Westside.UserEvent> {
+        val observable = authenticatedService.joinEvent(eventId)
+                .sharedNetworkSubscription()
+        observable.subscribe(this::onUserEventReceived, this::onError)
+        return observable
+    }
+
+    override fun leaveEvent(eventId: Int): Observable<ResponseBody> {
+        val observable = authenticatedService.leaveEvent(eventId)
+                .sharedNetworkSubscription()
+        observable.subscribe(this::onDeleteSuccess, this::onError)
         return observable
     }
 
@@ -61,6 +77,7 @@ class AuthenticatedServiceManager(private val service: WestsideServiceManager, p
     }
 
     override fun onUserReceived(user: Westside.User) {
+        currentUser = user
         // We are going to register the token now that we know the user is authed.
 //        val firebaseToken = FirebaseInstanceId.getInstance().token
 //        if (!firebaseToken.isNullOrEmpty()) {
@@ -75,6 +92,14 @@ class AuthenticatedServiceManager(private val service: WestsideServiceManager, p
 
     fun removeReauthenticationListener(listener: ReauthenticationListener) {
         listeners.remove(listener)
+    }
+
+    fun getCurrentUser() : Westside.User? {
+        return currentUser
+    }
+
+    private fun onDeleteSuccess(response: ResponseBody) {
+        //Do Nothing
     }
 }
 

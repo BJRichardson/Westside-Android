@@ -84,7 +84,7 @@ class WestsideModule(private val application: Application) {
     }
 
     @Provides @Singleton
-    fun provideAuthenticatedFoxServiceManager(serviceManager: WestsideServiceManager, service: AuthenticatedService, cacheManager: WestsideCacheManager): AuthenticatedServiceManager {
+    fun provideAuthenticatedServiceManager(serviceManager: WestsideServiceManager, service: AuthenticatedService, cacheManager: WestsideCacheManager): AuthenticatedServiceManager {
         return AuthenticatedServiceManager(serviceManager, service, cacheManager)
     }
 
@@ -104,7 +104,7 @@ class WestsideModule(private val application: Application) {
     }
 
     @Provides
-    fun providesFeedAdapter(): EventsAdapter {
+    fun providesEventAdapter(): EventsAdapter {
         return EventsAdapter (ArrayList<Westside.Event>())
     }
 

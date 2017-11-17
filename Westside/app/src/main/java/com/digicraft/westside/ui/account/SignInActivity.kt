@@ -27,8 +27,8 @@ class SignInActivity: AppCompatActivity() {
             window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimary)
         }
 
-        val foxApplication = applicationContext as WestsideApplication
-        foxApplication.westsideComponent.inject(this)
+        val westsideApplication = applicationContext as WestsideApplication
+        westsideApplication.westsideComponent.inject(this)
 
         val binding = DataBindingUtil.setContentView<ActivitySignInBinding>(this, R.layout.activity_sign_in)
         binding.vm = SignInViewModel(service, resources, this)

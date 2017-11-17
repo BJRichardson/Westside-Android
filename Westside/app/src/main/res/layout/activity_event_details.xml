@@ -56,6 +56,19 @@
                     android:textColor="@color/colorPrimaryDark"
                     tools:text="@string/long_sample_text"/>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autoLink="web|phone|email"
+                    android:linksClickable="true"
+                    android:paddingBottom="75dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="19dp"
+                    android:paddingTop="8dp"
+                    android:text="@{vm.eventAttendees}"
+                    android:textColor="@color/colorPrimaryDark"
+                    tools:text="@string/long_sample_text"/>
+
             </LinearLayout>
         </ScrollView>
 
@@ -73,9 +86,16 @@
             android:layout_marginLeft="31dp"
             android:layout_marginRight="31dp"
             android:background="@drawable/rounded_button"
-            android:onClick="@{vm::onAddEventClicked}"
-            android:text="@string/add_event"
+            android:onClick="@{vm::onEventButtonClicked}"
+            android:text="@{vm.eventButtonText}"
             android:textColor="@color/colorOffWhite"
-            android:visibility="@{vm.addButtonVisibility}" />
+            android:visibility="@{vm.eventButtonVisibility}" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="11dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:visibility="@{vm.progressBarVisibility}"/>
     </FrameLayout>
 </layout>

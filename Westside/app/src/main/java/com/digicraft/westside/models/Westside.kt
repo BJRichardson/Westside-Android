@@ -3,14 +3,16 @@ package com.digicraft.westside.models
 import android.os.Parcel
 import com.digicraft.westside.utils.KParcelable
 import com.digicraft.westside.utils.parcelableCreator
+import com.digicraft.westside.utils.readBoolean
+import com.digicraft.westside.utils.writeBoolean
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
 class Westside {
-    open class User(@SerializedName("username") val username: String,
-                    @SerializedName("password") val password: String,
+    open class User(@SerializedName("username") val username: String?,
+                    @SerializedName("password") val password: String?,
                     @SerializedName("email") val email: String?,
-                    @SerializedName("_id") val id: String?,
+                    @SerializedName("id") val id: Int?,
                     @SerializedName("imageUrl") val imageUrl: String?,
                     @SerializedName("phone") val phone: String?,
                     @SerializedName("address") val address: String?,
@@ -21,7 +23,7 @@ class Westside {
                 parcel.readString(),
                 parcel.readString(),
                 parcel.readString(),
-                parcel.readString(),
+                parcel.readInt(),
                 parcel.readString(),
                 parcel.readString(),
                 parcel.readString(),
@@ -33,7 +35,7 @@ class Westside {
             parcel.writeString(username)
             parcel.writeString(password)
             parcel.writeString(email)
-            parcel.writeString(id)
+            parcel.writeInt(if (id != null) id else 0)
             parcel.writeString(imageUrl)
             parcel.writeString(phone)
             parcel.writeString(address)
@@ -43,21 +45,20 @@ class Westside {
         }
 
         companion object {
-            @JvmField val CREATOR = parcelableCreator(::User)
+            @JvmField
+            val CREATOR = parcelableCreator(::User)
         }
     }
 
-    class Event(@SerializedName("_id") val id: Int,
+    class Event(@SerializedName("id") val id: Int,
                 @SerializedName("title") val title: String,
                 @SerializedName("description") val description: String?,
                 @SerializedName("startTime") val startTime: Date,
                 @SerializedName("endTime") val endTime: Date?,
                 @SerializedName("moreInformation") val moreInformation: String?,
                 @SerializedName("imageUrl") val imageUrl: String?,
-                @SerializedName("groups") val groups: List<Group>) : KParcelable {
-        init {
-
-        }
+                @SerializedName("groups") val groups: List<Group>,
+                @SerializedName("users") val users: List<User>) : KParcelable {
 
         constructor(parcel: Parcel) : this(
                 parcel.readInt(),
@@ -67,8 +68,10 @@ class Westside {
                 Date(parcel.readLong()),
                 parcel.readString(),
                 parcel.readString(),
-                ArrayList<Group>()) {
+                ArrayList<Group>(),
+                ArrayList<User>()) {
             parcel.readList(groups, Group::class.java.classLoader)
+            parcel.readList(users, User::class.java.classLoader)
         }
 
         override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -80,14 +83,16 @@ class Westside {
             parcel.writeString(moreInformation)
             parcel.writeString(imageUrl)
             parcel.writeList(groups)
+            parcel.writeList(users)
         }
 
         companion object {
-            @JvmField val CREATOR = parcelableCreator(::Event)
+            @JvmField
+            val CREATOR = parcelableCreator(::Event)
         }
     }
 
-    open class Group(@SerializedName("_id") val id: Int,
+    open class Group(@SerializedName("id") val id: Int,
                      @SerializedName("name") val name: String,
                      @SerializedName("description") val description: String?,
                      @SerializedName("chairperson") val chairperson: String?,
@@ -114,11 +119,12 @@ class Westside {
         }
 
         companion object {
-            @JvmField val CREATOR = parcelableCreator(::Group)
+            @JvmField
+            val CREATOR = parcelableCreator(::Group)
         }
     }
 
-    open class Announcement(@SerializedName("_id") val id: Int,
+    open class Announcement(@SerializedName("id") val id: Int,
                             @SerializedName("announcement") val announcement: String,
                             @SerializedName("createdDate") val createdDate: Date,
                             @SerializedName("updatedDate") val updatedDate: Date?,
@@ -145,11 +151,12 @@ class Westside {
         }
 
         companion object {
-            @JvmField val CREATOR = parcelableCreator(::Announcement)
+            @JvmField
+            val CREATOR = parcelableCreator(::Announcement)
         }
     }
 
-    open class Prayer(@SerializedName("_id") val id: Int,
+    open class Prayer(@SerializedName("id") val id: Int,
                       @SerializedName("prayer") val prayer: String,
                       @SerializedName("createdDate") val createdDate: Date,
                       @SerializedName("updatedDate") val updatedDate: Date?,
@@ -170,7 +177,31 @@ class Westside {
         }
 
         companion object {
-            @JvmField val CREATOR = parcelableCreator(::Prayer)
+            @JvmField
+            val CREATOR = parcelableCreator(::Prayer)
+        }
+    }
+
+    open class UserEvent(@SerializedName("id") val id: Int,
+                         @SerializedName("isAttending") val isAttending: Boolean,
+                         @SerializedName("user") val user: User,
+                         @SerializedName("event") val event: Event) : KParcelable {
+        constructor(parcel: Parcel) : this(
+                parcel.readInt(),
+                parcel.readBoolean(),
+                parcel.readParcelable(User::class.java.classLoader),
+                parcel.readParcelable(Event::class.java.classLoader))
+
+        override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeInt(id)
+            parcel.writeBoolean(isAttending)
+            parcel.writeParcelable(user, flags)
+            parcel.writeParcelable(event, flags)
+        }
+
+        companion object {
+            @JvmField
+            val CREATOR = parcelableCreator(::Prayer)
         }
     }
 
