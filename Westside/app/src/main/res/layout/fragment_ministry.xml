@@ -1,0 +1,97 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.digicraft.westside.ui.ministries.MinistryViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorOffWhite"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/view_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:paddingLeft="10dp"
+            android:text="@{vm.name}"
+            android:textSize="24sp"
+            tools:text="Steward Board" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:text="@{vm.description}"
+            android:textSize="12sp"
+            tools:text="@string/long_sample_text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:paddingLeft="10dp"
+            android:text="@{vm.chairperson}"
+            android:textSize="12sp"
+            tools:text="Chairperson: Bryan Jones Richardson" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:text="@{vm.phone}"
+            android:autoLink="phone"
+            android:textSize="12sp"
+            tools:text="Phone: 404-343-5322" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:text="@{vm.email}"
+            android:autoLink="email"
+            android:textSize="12sp"
+            tools:text="Email: stewardboard@westside.com" />
+
+    </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="11dp"
+            android:layout_marginLeft="31dp"
+            android:layout_marginRight="31dp"
+            android:background="@drawable/rounded_button"
+            android:onClick="@{vm::onMinistryButtonClicked}"
+            android:text="@{vm.ministryButtonText}"
+            android:textColor="@color/colorOffWhite"
+            android:visibility="@{vm.ministryButtonVisibility}" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="11dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:visibility="@{vm.progressVisibility}"/>
+
+    </RelativeLayout>
+</layout>

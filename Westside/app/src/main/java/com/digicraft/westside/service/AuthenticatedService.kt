@@ -20,6 +20,12 @@ interface AuthenticatedService {
     @DELETE(value = "schedule/{id}")
     fun leaveEvent(@Path("id") eventId: Int): Observable<ResponseBody>
 
+    @POST(value = "ministries/{id}")
+    fun joinMinistry(@Path("id") groupId: Int): Observable<Westside.UserGroup>
+
+    @DELETE(value = "schedule/{id}")
+    fun leaveMinistry(@Path("id") groupId: Int): Observable<ResponseBody>
+
 //    @PUT(value = "devices")
 //    fun registerDevice(@Body device: Fox.New.Device): Observable<Fox.Device>
 

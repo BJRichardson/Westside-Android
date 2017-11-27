@@ -75,4 +75,24 @@ interface Receivable {
             Log.e("ERROR", error.message, null)
         }
     }
+
+    interface UserGroup : ErrorExtractable {
+        fun onUserGroupReceived(userGroup: Westside.UserGroup) {
+            //NOP
+        }
+
+        fun onUserGroupReceivedError(error: Throwable) {
+            //NOP
+        }
+    }
+
+    interface Group : ErrorExtractable {
+        fun onGroupsReceived(posts: List<Westside.Group>) {
+            //NOP
+        }
+
+        fun onGroupReceivedError(error: Throwable) {
+            Log.e("ERROR", error.message, null)
+        }
+    }
 }

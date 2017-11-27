@@ -205,6 +205,26 @@ class Westside {
         }
     }
 
+    open class UserGroup(@SerializedName("id") val id: Int,
+                         @SerializedName("user") val user: User,
+                         @SerializedName("group") val group: Group) : KParcelable {
+        constructor(parcel: Parcel) : this(
+                parcel.readInt(),
+                parcel.readParcelable(User::class.java.classLoader),
+                parcel.readParcelable(Group::class.java.classLoader))
+
+        override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeInt(id)
+            parcel.writeParcelable(user, flags)
+            parcel.writeParcelable(group, flags)
+        }
+
+        companion object {
+            @JvmField
+            val CREATOR = parcelableCreator(::Prayer)
+        }
+    }
+
     class Token(@SerializedName("access_token") val accessToken: String,
                 @SerializedName("refresh_token") val refreshToken: String,
                 @SerializedName("token_type") val tokenType: String,

@@ -27,8 +27,8 @@ class CreateAccountActivity: AppCompatActivity() {
             window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimary)
         }
 
-        val foxApplication = applicationContext as WestsideApplication
-        foxApplication.westsideComponent.inject(this)
+        val application = applicationContext as WestsideApplication
+        application.westsideComponent.inject(this)
 
         val binding = DataBindingUtil.setContentView<ActivityCreateAccountBinding>(this, R.layout.activity_create_account)
         binding.vm = CreateAccountViewModel(resources, service, this)

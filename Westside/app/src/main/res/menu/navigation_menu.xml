@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/connectGroup" android:checkableBehavior="none">
+        <item
+            android:id="@+id/ministries"
+            android:icon="@mipmap/icon_contact"
+            android:title="@string/ministries"/>
+        <item
+            android:id="@+id/members"
+            android:icon="@mipmap/icon_contact"
+            android:title="@string/members"/>
+    </group>
     <group android:id="@+id/socialGroup" android:checkableBehavior="none">
         <item
             android:id="@+id/contact_us"
@@ -18,7 +28,7 @@
             <!--android:icon="@mipmap/icon_instagram"-->
             <!--android:title="@string/instagram"/>-->
     </group>
-    <group android:id="@+id/account" android:checkableBehavior="none">
+    <group android:id="@+id/authedGroup" android:checkableBehavior="none">
         <item
             android:id="@+id/create_account"
             android:title="@string/create_account"/>
@@ -26,7 +36,7 @@
             android:id="@+id/sign_in"
             android:title="@string/sign_in"/>
     </group>
-    <group android:id="@+id/logout" android:checkableBehavior="none">
+    <group android:id="@+id/unauthedGroup" android:checkableBehavior="none">
         <item
             android:id="@+id/sign_out"
             android:title="@string/sign_out"/>

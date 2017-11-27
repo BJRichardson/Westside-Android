@@ -1,5 +1,7 @@
 package com.digicraft.westside.extensions
 
+
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import com.digicraft.westside.WestsideApplication
@@ -18,6 +20,13 @@ fun AppCompatActivity.setupToolbar(toolBar: Toolbar, showBack: Boolean = true) {
     setSupportActionBar(toolBar)
     if (showBack) {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+}
+
+fun Fragment.setupToolbar(activity: AppCompatActivity, toolBar: Toolbar, showBack: Boolean = true) {
+    activity.setSupportActionBar(toolBar)
+    if (showBack) {
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 }
 

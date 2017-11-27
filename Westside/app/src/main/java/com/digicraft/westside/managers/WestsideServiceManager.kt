@@ -8,7 +8,14 @@ import com.digicraft.westside.service.RetryAfterTimeoutWithDelay
 import com.digicraft.westside.service.WestsideService
 import io.reactivex.Observable
 
-class WestsideServiceManager(val service: WestsideService, private val cacheManager: WestsideCacheManager) : WestsideService, Receivable.Event, Receivable.Announcement, Receivable.Prayer, Receivable.Token {
+class WestsideServiceManager(val service: WestsideService, private val cacheManager: WestsideCacheManager) : WestsideService, Receivable.Event, Receivable.Announcement, Receivable.Prayer, Receivable.Token, Receivable.Group {
+    override fun fetchGroups(): Observable<List<Westside.Group>> {
+        val observable = service.fetchGroups()
+                .sharedNetworkSubscription()
+        observable.subscribe(this::onGroupsReceived, this::onGroupReceivedError)
+        return observable
+    }
+
     override fun fetchEvents(): Observable<List<Westside.Event>> {
         val observable = service.fetchEvents()
                 .sharedNetworkSubscription()
@@ -52,18 +59,6 @@ class WestsideServiceManager(val service: WestsideService, private val cacheMana
                 .retryWhen(RetryAfterTimeoutWithDelay(WestsideConfig.NUMBER_OF_TIMES_TO_RETRY, WestsideConfig.RETRY_DELAY_IN_MILLISECONDS))
         observable.subscribe(this::onTokenReceived, this::onTokenReceivedError)
         return observable
-    }
-
-    override fun onEventReceived(posts: List<Westside.Event>) {
-        //NOOP
-    }
-
-    override fun onAnnouncementReceived(posts: List<Westside.Announcement>) {
-        //NOOP
-    }
-
-    override fun onPrayerReceived(posts: List<Westside.Prayer>) {
-        //NOOP
     }
 
     override fun onTokenReceived(token: Westside.Token) {

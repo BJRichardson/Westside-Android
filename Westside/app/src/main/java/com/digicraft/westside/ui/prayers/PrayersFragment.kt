@@ -21,8 +21,8 @@ class PrayersFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val testDriveApplication = context.applicationContext as WestsideApplication
-        testDriveApplication.westsideComponent.inject(this)
+        val application = context.applicationContext as WestsideApplication
+        application.westsideComponent.inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {

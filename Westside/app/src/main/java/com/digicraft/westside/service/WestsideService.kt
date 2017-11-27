@@ -8,6 +8,9 @@ import okhttp3.Response
 import retrofit2.http.*
 
 interface WestsideService {
+    @GET(value = "groups")
+    fun fetchGroups(): Observable<List<Westside.Group>>
+
     @GET(value = "events")
     fun fetchEvents(): Observable<List<Westside.Event>>
 

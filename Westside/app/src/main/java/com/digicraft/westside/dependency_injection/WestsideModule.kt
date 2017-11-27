@@ -11,6 +11,7 @@ import com.digicraft.westside.service.AuthenticatedService
 import com.digicraft.westside.service.WestsideService
 import com.digicraft.westside.ui.announcements.AnnouncementsAdapter
 import com.digicraft.westside.ui.events.EventsAdapter
+import com.digicraft.westside.ui.ministries.MinistriesAdapter
 import com.digicraft.westside.ui.prayers.PrayersAdapter
 import dagger.Module
 import dagger.Provides
@@ -116,5 +117,10 @@ class WestsideModule(private val application: Application) {
     @Provides
     fun providesPrayersAdapter(): PrayersAdapter {
         return PrayersAdapter (ArrayList<Westside.Prayer>())
+    }
+
+    @Provides
+    fun providesMinistriesAdapter(): MinistriesAdapter {
+        return MinistriesAdapter (ArrayList<Westside.Group>())
     }
 }
