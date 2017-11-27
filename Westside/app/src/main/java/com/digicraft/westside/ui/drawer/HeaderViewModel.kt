@@ -17,4 +17,8 @@ class HeaderViewModel: BaseObservable() {
     fun onError(throwable: Throwable) {
         name = ""
     }
+
+    fun onSignedOut() {
+        name = ""
+    }
 }

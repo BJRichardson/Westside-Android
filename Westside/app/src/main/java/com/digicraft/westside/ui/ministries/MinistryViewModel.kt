@@ -108,15 +108,15 @@ open class MinistryViewModel(val group: Westside.Group, val serviceManager: Auth
     }
 
     fun isMember(): Boolean {
-//        for (user in group.users) {
-//            if (user.id == serviceManager.getCurrentUser()?.id) {
-//                isMember = true
-//                notifyChange()
-//                return isMember
-//            }
-//        }
-//        isMember = false
-//        notifyChange()
+        for (user in group.members) {
+            if (user.id == serviceManager.getCurrentUser()?.id) {
+                isMember = true
+                notifyChange()
+                return isMember
+            }
+        }
+        isMember = false
+        notifyChange()
         return isMember
     }
 }

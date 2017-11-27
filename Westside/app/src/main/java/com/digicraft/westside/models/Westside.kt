@@ -98,7 +98,8 @@ class Westside {
                      @SerializedName("chairperson") val chairperson: String?,
                      @SerializedName("email") val email: String?,
                      @SerializedName("phone") val phone: String?,
-                     @SerializedName("imageUrl") val imageUrl: String?) : KParcelable {
+                     @SerializedName("imageUrl") val imageUrl: String?,
+                     @SerializedName("users") val members: List<User>) : KParcelable {
         constructor(parcel: Parcel) : this(
                 parcel.readInt(),
                 parcel.readString(),
@@ -106,7 +107,10 @@ class Westside {
                 parcel.readString(),
                 parcel.readString(),
                 parcel.readString(),
-                parcel.readString())
+                parcel.readString(),
+                ArrayList<User>()) {
+                    parcel.readList(members, User::class.java.classLoader)
+                 }
 
         override fun writeToParcel(parcel: Parcel, flags: Int) {
             parcel.writeInt(id)
@@ -116,6 +120,7 @@ class Westside {
             parcel.writeString(email)
             parcel.writeString(phone)
             parcel.writeString(imageUrl)
+            parcel.writeList(members)
         }
 
         companion object {

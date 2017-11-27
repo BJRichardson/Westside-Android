@@ -23,7 +23,7 @@ interface AuthenticatedService {
     @POST(value = "ministries/{id}")
     fun joinMinistry(@Path("id") groupId: Int): Observable<Westside.UserGroup>
 
-    @DELETE(value = "schedule/{id}")
+    @DELETE(value = "ministries/{id}")
     fun leaveMinistry(@Path("id") groupId: Int): Observable<ResponseBody>
 
 //    @PUT(value = "devices")
