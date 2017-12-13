@@ -12,6 +12,7 @@ class WestsideConfig {
         val DEFAULT_TOKEN: String = "INVALID_TOKEN"
         val EVENT_KEY: String = "event"
         val GROUP_KEY: String = "group"
+        val USER_KEY: String = "user"
         val PLACEHOLDER_EVENT_URL: String = "http://something"
     }
 }

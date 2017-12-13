@@ -13,6 +13,7 @@ import com.digicraft.westside.ui.announcements.AnnouncementsAdapter
 import com.digicraft.westside.ui.events.EventsAdapter
 import com.digicraft.westside.ui.ministries.MinistriesAdapter
 import com.digicraft.westside.ui.prayers.PrayersAdapter
+import com.digicraft.westside.ui.users.UsersAdapter
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
@@ -122,5 +123,10 @@ class WestsideModule(private val application: Application) {
     @Provides
     fun providesMinistriesAdapter(): MinistriesAdapter {
         return MinistriesAdapter (ArrayList<Westside.Group>())
+    }
+
+    @Provides
+    fun providesUsersAdapter(): UsersAdapter {
+        return UsersAdapter (ArrayList<Westside.User>())
     }
 }

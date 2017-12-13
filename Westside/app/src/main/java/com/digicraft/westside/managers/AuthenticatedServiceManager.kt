@@ -13,7 +13,7 @@ import okhttp3.ResponseBody
 import retrofit2.HttpException
 
 
-class AuthenticatedServiceManager(private val service: WestsideServiceManager, private val authenticatedService: AuthenticatedService, private val cacheManager: WestsideCacheManager) : AuthenticatedService, Receivable.Token, Receivable.User, Receivable.UserEvent, Receivable.UserGroup {
+class AuthenticatedServiceManager(private val service: WestsideServiceManager, private val authenticatedService: AuthenticatedService, private val cacheManager: WestsideCacheManager) : AuthenticatedService, Receivable.Token, Receivable.User, Receivable.UserEvent, Receivable.UserGroup, Receivable.Users {
     val isAuthenticated: Boolean
         get() = cacheManager.isAuthenticated
     private var isReauthenticating: Boolean = false
@@ -68,6 +68,14 @@ class AuthenticatedServiceManager(private val service: WestsideServiceManager, p
         observable.subscribe(this::onDeleteSuccess, this::onError)
         return observable
     }
+
+    override fun fetchUsers(): Observable<List<Westside.User>> {
+        val observable = authenticatedService.fetchUsers()
+                .sharedNetworkSubscription()
+        observable.subscribe(this::onUsersReceived, this::onUserReceivedError)
+        return observable
+    }
+
 
     private fun onError(throwable: Throwable) {
         if (throwable is HttpException) {

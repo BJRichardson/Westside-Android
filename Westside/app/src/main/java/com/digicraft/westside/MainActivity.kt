@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity(), Receivable.User, ReauthenticationListe
 
     private fun setOptionsMenuAuthenticatedState(theMenu: Menu?, isAuthenticated: Boolean) {
         navigation.menu.setGroupVisible(R.id.authedGroup, !isAuthenticated)
-        //navigation.menu.setGroupVisible(R.id.connectGroup, !isAuthenticated)
+        navigation.menu.setGroupVisible(R.id.connectGroup, isAuthenticated)
         navigation.menu.setGroupVisible(R.id.unauthedGroup, isAuthenticated)
     }
 

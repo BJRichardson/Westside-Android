@@ -95,4 +95,14 @@ interface Receivable {
             Log.e("ERROR", error.message, null)
         }
     }
+
+    interface Users : ErrorExtractable {
+        fun onUsersReceived(posts: List<Westside.User>) {
+            //NOP
+        }
+
+        fun onUsersReceivedError(error: Throwable) {
+            Log.e("ERROR", error.message, null)
+        }
+    }
 }

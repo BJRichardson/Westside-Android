@@ -12,6 +12,8 @@ import com.digicraft.westside.ui.events.EventsFragment
 import com.digicraft.westside.ui.ministries.MinistriesFragment
 import com.digicraft.westside.ui.ministries.MinistryFragment
 import com.digicraft.westside.ui.prayers.PrayersFragment
+import com.digicraft.westside.ui.users.UserFragment
+import com.digicraft.westside.ui.users.UsersFragment
 
 
 @Singleton
@@ -27,4 +29,6 @@ interface WestsideComponent {
     fun inject(eventDetailsActivity: EventDetailsActivity)
     fun inject(ministriesFragment: MinistriesFragment)
     fun inject(ministryFragment: MinistryFragment)
+    fun inject(usersFragment: UsersFragment)
+    fun inject(userFragment: UserFragment)
 }

@@ -11,6 +11,7 @@ import com.digicraft.westside.models.Westside
 import com.digicraft.westside.ui.account.CreateAccountActivity
 import com.digicraft.westside.ui.account.SignInActivity
 import com.digicraft.westside.ui.ministries.MinistriesActivity
+import com.digicraft.westside.ui.users.UsersActivity
 
 class WestsideDrawerOnClickListener(val context: Context, val drawerLayout: DrawerLayout): NavigationView.OnNavigationItemSelectedListener {
 
@@ -40,8 +41,8 @@ class WestsideDrawerOnClickListener(val context: Context, val drawerLayout: Draw
                 return true
             }
             item.itemId == R.id.members -> {
-//                val intent = Intent(context, CreateAccountActivity::class.java)
-//                context.startActivity(intent)
+                val intent = Intent(context, UsersActivity::class.java)
+                context.startActivity(intent)
                 return true
             }
 //            }

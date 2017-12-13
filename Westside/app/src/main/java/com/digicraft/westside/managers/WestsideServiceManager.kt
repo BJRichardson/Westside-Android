@@ -9,6 +9,7 @@ import com.digicraft.westside.service.WestsideService
 import io.reactivex.Observable
 
 class WestsideServiceManager(val service: WestsideService, private val cacheManager: WestsideCacheManager) : WestsideService, Receivable.Event, Receivable.Announcement, Receivable.Prayer, Receivable.Token, Receivable.Group {
+
     override fun fetchGroups(): Observable<List<Westside.Group>> {
         val observable = service.fetchGroups()
                 .sharedNetworkSubscription()

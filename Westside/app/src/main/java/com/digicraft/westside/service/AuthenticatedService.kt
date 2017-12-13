@@ -26,6 +26,9 @@ interface AuthenticatedService {
     @DELETE(value = "ministries/{id}")
     fun leaveMinistry(@Path("id") groupId: Int): Observable<ResponseBody>
 
+    @GET(value = "users")
+    fun fetchUsers(): Observable<List<Westside.User>>
+
 //    @PUT(value = "devices")
 //    fun registerDevice(@Body device: Fox.New.Device): Observable<Fox.Device>
 
