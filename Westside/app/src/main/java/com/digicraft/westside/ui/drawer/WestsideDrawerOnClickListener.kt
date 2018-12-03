@@ -18,8 +18,6 @@ class WestsideDrawerOnClickListener(val context: Context, val drawerLayout: Draw
     var user : Westside.User? = null
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-//        drawerLayout.closeDrawers()
-//        return false
         when {
             item.itemId == R.id.create_account -> {
                 val intent = Intent(context, CreateAccountActivity::class.java)
@@ -45,7 +43,11 @@ class WestsideDrawerOnClickListener(val context: Context, val drawerLayout: Draw
                 context.startActivity(intent)
                 return true
             }
-//            }
+            item.itemId == R.id.my_events -> {
+                val intent = Intent(context, UsersActivity::class.java)
+                context.startActivity(intent)
+                return true
+            }
             else -> return false
         }
 

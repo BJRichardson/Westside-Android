@@ -8,9 +8,6 @@ import android.widget.Toast
 import com.digicraft.westside.R
 import com.digicraft.westside.managers.AuthenticatedServiceManager
 import com.digicraft.westside.models.Westside
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import okhttp3.ResponseBody
 
 open class UserViewModel(val user: Westside.User, val serviceManager: AuthenticatedServiceManager, val context: Context) : BaseObservable() {
 

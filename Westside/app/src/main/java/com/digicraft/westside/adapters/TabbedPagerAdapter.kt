@@ -21,7 +21,7 @@ class TabbedPagerAdapter(fm: FragmentManager, val applicationContext: Context) :
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> Fragment()
-            1 -> EventsFragment()
+            1 -> EventsFragment.newInstance(true)
             2 -> AnnouncementsFragment()
             3 -> PrayersFragment()
             else -> throw IllegalStateException()

@@ -42,7 +42,7 @@ class MinistryFragment : Fragment() {
         group = arguments.getParcelable<Westside.Group>(WestsideConfig.GROUP_KEY)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<FragmentMinistryBinding>(inflater, R.layout.fragment_ministry,container , false)
         binding.vm = MinistryViewModel(group, serviceManager, activity)
         return binding.root

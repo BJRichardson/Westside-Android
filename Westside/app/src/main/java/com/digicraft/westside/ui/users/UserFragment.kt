@@ -43,7 +43,7 @@ class UserFragment : Fragment() {
         user = arguments.getParcelable<Westside.User>(WestsideConfig.USER_KEY)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<FragmentUserBinding>(inflater, R.layout.fragment_user,container , false)
         binding.vm = UserViewModel(user, serviceManager, activity)
         return binding.root

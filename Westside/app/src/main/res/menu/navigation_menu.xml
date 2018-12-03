@@ -10,6 +10,12 @@
             android:icon="@mipmap/icon_contact"
             android:title="@string/members"/>
     </group>
+    <group android:id="@+id/postsGroup" android:checkableBehavior="none">
+        <item
+            android:id="@+id/my_events"
+            android:icon="@mipmap/icon_contact"
+            android:title="@string/my_events"/>
+    </group>
     <group android:id="@+id/socialGroup" android:checkableBehavior="none">
         <item
             android:id="@+id/contact_us"

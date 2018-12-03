@@ -56,8 +56,8 @@ open class MinistryViewModel(val group: Westside.Group, val serviceManager: Auth
                 progressVisibility = View.GONE
                 ministryButtonVisibility = View.VISIBLE
             }
-            notifyPropertyChanged(com.android.databinding.library.baseAdapters.BR.progressVisibility)
-            notifyPropertyChanged(com.android.databinding.library.baseAdapters.BR.ministryButtonVisibility)
+            notifyPropertyChanged(progressVisibility)
+            notifyPropertyChanged(ministryButtonVisibility)
         }
 
     @Bindable

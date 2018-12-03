@@ -6,7 +6,7 @@ import android.databinding.Bindable
 import android.support.v7.app.AppCompatActivity
 import android.telephony.PhoneNumberFormattingTextWatcher
 import android.view.View
-import com.android.databinding.library.baseAdapters.BR
+import com.digicraft.westside.BR
 import com.digicraft.westside.R
 import com.digicraft.westside.interfaces.KeyboardDismissible
 import com.digicraft.westside.interfaces.Receivable
@@ -46,7 +46,7 @@ class CreateAccountViewModel(val resources: Resources, val service: WestsideServ
                 createAccountButtonText = resources.getString(R.string.sign_in_caps)
                 progressBarVisibility = View.GONE
             }
-            notifyPropertyChanged(BR.progressBarVisibility)
+            notifyPropertyChanged(progressBarVisibility)
             notifyPropertyChanged(BR.createAccountButtonText)
         }
 

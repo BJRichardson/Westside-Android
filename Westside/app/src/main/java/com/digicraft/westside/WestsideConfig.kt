@@ -13,6 +13,7 @@ class WestsideConfig {
         val EVENT_KEY: String = "event"
         val GROUP_KEY: String = "group"
         val USER_KEY: String = "user"
+        val SHOW_EVENTS_KEY: String = "showAllEvents"
         val PLACEHOLDER_EVENT_URL: String = "http://something"
     }
 }

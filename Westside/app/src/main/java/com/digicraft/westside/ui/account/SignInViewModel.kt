@@ -33,7 +33,7 @@ class SignInViewModel(val service: WestsideService, val resources: Resources, pr
                 signInButtonText = resources.getString(R.string.sign_in_caps)
                 progressBarVisibility = View.GONE
             }
-            notifyPropertyChanged(com.android.databinding.library.baseAdapters.BR.progressBarVisibility)
+            notifyPropertyChanged(progressBarVisibility)
             notifyPropertyChanged(com.android.databinding.library.baseAdapters.BR.signInButtonText)
         }
 
